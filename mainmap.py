@@ -4,8 +4,9 @@ import unitclass
 import random
 import itemlist
 import copy
+knownrooms = []
 def level(num):
-    n = (num + 2) * 2
+    n = (num + 2) * 3
     A = generate.generate(n)
     litemlist = itemlist.mainitemlist
 
@@ -19,41 +20,59 @@ def level(num):
     litemlist.remove(tritem2)
     s = n // 2
     p = [s, s]
+    if [p[0], p[1] + 1] not in knownrooms:
+        knownrooms.append([p[0], p[1] + 1])
+    if [p[0], p[1] - 1] not in knownrooms:
+        knownrooms.append([p[0], p[1] - 1])
+    if [p[0] + 1, p[1]] not in knownrooms:
+        knownrooms.append([p[0] + 1, p[1]])
+    if [p[0] - 1, p[1]] not in knownrooms:
+        knownrooms.append([p[0] - 1, p[1]])
+
     while True:
         for i in range(n):
             for j in range(n):
                 if j == p[0] and i == p[1]:
                     print('p', end=' ')
-                else:
+                elif [j, i] in knownrooms:
+
                     print(A[i][j], end=' ')
+                else:
+                    print('.', end=' ')
             print()
+        print()
+
+
         inp = input()
         print(p)
-        if A[p[1] - 1][p[0]] != '.':
-            print('вверх можно')
-        else:
-            print([p[0], p[1] - 1])
-            print(A[p[1] - 1][p[0]])
-        if inp == 's' and p[1] < n and A[p[1] + 1][p[0]] != '.':
+
+
+
+        if inp == 's' and p[1]+1 < n and A[p[1] + 1][p[0]] != '.':
             p = [p[0], p[1] + 1]
         elif inp == 'a' and p[0] > 0 and A[p[1]][p[0] - 1] != '.':
             p = [p[0] - 1, p[1]]
         elif inp == 'w' and p[1] > 0 and A[p[1] - 1][p[0]] != '.':
             p = [p[0], p[1] - 1]
-        elif inp == 'd' and p[0] < n and A[p[1]][p[0] + 1] != '.':
+        elif inp == 'd' and p[0]+1 < n and A[p[1]][p[0] + 1] != '.':
             p = [p[0] + 1, p[1]]
         elif inp == 'end':
             break
+        print('player', p)
+        if [p[0], p[1] + 1] not in knownrooms:
+            knownrooms.append([p[0], p[1] + 1])
+        if [p[0], p[1] - 1] not in knownrooms and p[1] >= 1:
+            knownrooms.append([p[0], p[1] - 1])
+        if [p[0] + 1, p[1]] not in knownrooms:
+            knownrooms.append([p[0] + 1, p[1]])
+        if [p[0] - 1, p[1]] not in knownrooms and p[0] - 1 >= 0:
+            knownrooms.append([p[0] - 1, p[1]])
+        print(knownrooms)
+
 
 
         if A[p[1]][p[0]] == '#':
-            for i in range(n):
-                for j in range(n):
-                    if j == p[0] and i == p[1]:
-                        print('p', end=' ')
-                    else:
-                        print(A[i][j], end=' ')
-                print()
+
             unit_list1 = [copy.deepcopy(random.choice(unitclass.unlist)) for i in range(num + 2)]
             main.battle(unit_list1)
             A[p[1]][p[0]] = '[]'

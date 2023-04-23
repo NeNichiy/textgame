@@ -2,17 +2,8 @@ import random
 import unitclass
 import itemlist
 import copy
-pl_dmg = 70
-pl_hp = 500
-unit1_dmg = 10
-unit1 = 50
-unit1_name = 'unitname'
-class player:
-    st = True
-    name = 'игрок'
-    dmg = 50
-    hp = 100
-    plitemlist = []
+
+
 
 
 
@@ -21,13 +12,14 @@ class player:
 
 going = True
 def attack(unit, dmg):
-    unit.hp -= dmg
+    mul = 1 - (0.06 * unit.armour) / (1 + (0.06 * unit.armour))
+    unit.hp -= int(dmg * mul)
     if unit.hp <= 0:
         unit.st = False
         print(f'{unit.name} убит')
 
     else:
-        print(f'{unit.name} получил {dmg} урона')
+        print(f'{unit.name} получил {int(dmg * mul)} урона')
 
 
 def battle(unit_list):
@@ -41,7 +33,7 @@ def battle(unit_list):
         print('Атаковать         Использовать предметы         Бежать         Осмотреть поле        Осмотреть героя')
         if input() == 'атаковать' or '1':
             print("Номер цели")
-            attack(unit_list[int(input())-1], player.dmg)
+            attack(unit_list[int(input())-1], unitclass.player.dmg)
 
 
 
@@ -70,7 +62,7 @@ def unit_show(unit_list):
     print('Враги на экране:')
     for unit in unit_list:
         if unit.st == True:
-            print(f'{unit.name}, {unit.hp} здоровья')
+            print(f'    {unit.name}, {unit.hp} здоровья')
         else:
             total += 1
             if total == len(unit_list):
@@ -81,14 +73,14 @@ def unit_show(unit_list):
 
 
 def showplayer():
-    print(f'Игрок: {player.hp} здоровья, {player.dmg} урона')
+    print(f'Игрок: {unitclass.player.hp} здоровья, {unitclass.player.dmg} урона')
 
 
 def unit_attack(unit_list):
     for unit in unit_list:
         if unit.st == True:
-            attack(player, unit.dmg)
-    if player.hp <= 0:
+            attack(unitclass.player, unit.dmg)
+    if unitclass.player.hp <= 0:
         going = False
         print('Вы погибли')
         print('#######')

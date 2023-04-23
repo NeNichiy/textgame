@@ -4,6 +4,20 @@ class creep:
     name = 'Прихвостень'
     dmg = 10
     hp = 30
+class player:
+    st = True
+    name = 'игрок'
+    dmg = 3000
+    hp = 3000
+    armour = 0
+    plitemlist = []
+
+
+
+
+
+
+
 class kn:
     st = True
     name = 'Воин'
@@ -16,12 +30,13 @@ class lol:
     hp = 25
 
 class Unit:
-    def __init__(self, name, hp, dmg, st):
+    def __init__(self, name, hp, armour, dmg, st, maxhp):
+        self.armour = armour
         self.name = name
         self.hp = hp
         self.dmg = dmg
         self.st = st
-creep = Unit('Прихвостень', 30, 10, True)
-kn = Unit('Воин', 40, 25, True)
-lol = Unit('Даунич', 15, 25, True)
+creep = Unit('Прихвостень', 30, 1, 10, True, 30)
+kn = Unit('Воин', 40, 3, 25, True, 40)
+lol = Unit('Даунич', 15, 0, 25, True, 15)
 unlist = [creep, kn]
