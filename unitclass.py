@@ -1,3 +1,4 @@
+
 class creep:
 
     st = True
@@ -11,6 +12,7 @@ class player:
     hp = 3000
     armour = 0
     plitemlist = []
+    active_item_list = []
 
 
 

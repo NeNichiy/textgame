@@ -19,25 +19,25 @@ def generate(n):
     A[s][s] = 'S'
     rooms = [[s, s]]
     l = [[-1, 0], [1, 0], [0, 1], [0, -1]]
-    print(A)
+#    print(A)
     while counter < (n * 2):
         rv = []
-        print('new cicle')
+  #      print('new cicle')
         new_room_pool = []
         for basedroom in rooms:
             if [basedroom[0] + 1,  basedroom[1]] not in rooms and basedroom[0] + 1 < len(A):
-                print('up')
+  #              print('up')
                 new_room_pool.append([basedroom[0] + 1,  basedroom[1]])
             if [basedroom[0] - 1,  basedroom[1]] not in rooms and basedroom[0] - 1 >= 0:
                 new_room_pool.append([basedroom[0] - 1,  basedroom[1]])
-                print('down')
+ #               print('down')
             if [basedroom[0],  basedroom[1] + 1] not in rooms and basedroom[1] + 1 < len(A[0]):
                 new_room_pool.append([basedroom[0],  basedroom[1] + 1])
-                print('right')
+ #               print('right')
             if [basedroom[0],  basedroom[1] - 1] not in rooms and basedroom[1] - 1 >= 0:
                 new_room_pool.append([basedroom[0], basedroom[1] - 1])
-                print('left')
-        print(new_room_pool)
+#                print('left')
+#        print(new_room_pool)
         for r in new_room_pool:
             c = new_room_pool.count(r)
             if c > 1:
@@ -51,8 +51,8 @@ def generate(n):
 
 
 
-        print(len(A))
-        print(newroom)
+#        print(len(A))
+#        print(newroom)
         rooms.append(newroom)
         A[newroom[0]][newroom[1]] = '#'
 #                for i in range(n):
@@ -89,22 +89,22 @@ def generate(n):
 
 
         cr = (((abs(int(r[0]) - s)) ** 2) + (int(abs(r[1] - s) ** 2))) ** (1/2)
-        print(cr, r)
+#        print(cr, r)
         if cr > br:
-            print('yees')
+#            print('yees')
             br = cr
             bri = r
     A[bri[0]][bri[1]] = 'X'
 
 
-    print('конец', bri)
-    print(itemlist.mainitemlist)
+#    print('конец', bri)
+#    print(itemlist.mainitemlist)
     return A
-print('m')
+#print('m')
 m = generate(5)
-for i in range(5):
-    for j in range(5):
-        print(m[i][j], end=' ')
-    print()
+#for i in range(5):
+#    for j in range(5):
+#        print(m[i][j], end=' ')
+#    print()
 
 #comment

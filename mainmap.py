@@ -11,13 +11,13 @@ def level(num):
     A = generate.generate(n)
     litemlist = itemlist.mainitemlist
 
-    print('начало генерации')
+  #  print('начало генерации')
     tritem1 = random.choice(litemlist)
-    print(tritem1)
+ #   print(tritem1)
     litemlist.remove(tritem1)
-    print(litemlist)
+#    print(litemlist)
     tritem2 = random.choice(litemlist)
-    print(tritem2)
+#    print(tritem2)
     litemlist.remove(tritem2)
     s = n // 2
     p = [s, s]
@@ -45,7 +45,7 @@ def level(num):
 
 
         inp = input()
-        print(p)
+#        print(p)
 
 
         lr = p
@@ -59,7 +59,7 @@ def level(num):
             p = [p[0] + 1, p[1]]
         elif inp == 'end':
             break
-        print('player', p)
+#        print('player', p)
         if [p[0], p[1] + 1] not in knownrooms:
             knownrooms.append([p[0], p[1] + 1])
         if [p[0], p[1] - 1] not in knownrooms and p[1] >= 1:
@@ -68,13 +68,13 @@ def level(num):
             knownrooms.append([p[0] + 1, p[1]])
         if [p[0] - 1, p[1]] not in knownrooms and p[0] - 1 >= 0:
             knownrooms.append([p[0] - 1, p[1]])
-        print(knownrooms)
+#        print(knownrooms)
 
         for i in range(n):
             for j in range(n):
                 if A[i][j] == '#':
                     roomdict[(i, j)] = [copy.deepcopy(random.choice(unitclass.unlist)) for i in range(num + 2)]
-                    print(roomdict.items())
+ #                   print(roomdict.items())
                 elif [j, i] in knownrooms:
 
                     print(A[i][j], end=' ')
@@ -91,8 +91,9 @@ def level(num):
 
         if A[p[1]][p[0]] == '#':
 
-            print(roomdict[(p[1], p[0])])
+ #           print(roomdict[(p[1], p[0])])
             res = main.battle(roomdict[(p[1], p[0])])
+#            print(res)
             if res == 'won':
                 A[p[1]][p[0]] = '[]'
             elif res == 'run':
@@ -104,11 +105,13 @@ def level(num):
             print(f'Сокровищница!')
             if tritem1.name != 'Предмет взят':
                 print(f'{tritem1.name}')
-                print(f'{tritem1.script}')
+                print(f'Описание: {tritem1.script}')
                 print('Взять?')
                 ans = input()
                 if ans == '1':
                     tritem1.additem(1)
+                    if tritem1.act:
+                        unitclass.player.active_item_list.append(tritem1)
                     tritem1 = itemlist.hollow_
                 else:
                     continue
@@ -126,6 +129,8 @@ def level(num):
                 ans = input()
                 if bool(ans):
                     tritem2.additem(1)
+                    if tritem2.act:
+                        unitclass.player.active_item_list.append(tritem2)
                     tritem2 = itemlist.hollow_
         elif A[p[1]][p[0]] == 'X':
             print('Закончить уровень?')

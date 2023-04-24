@@ -20,10 +20,19 @@ def attack(unit, dmg):
 
     else:
         print(f'{unit.name} получил {int(dmg * mul)} урона')
+def magic_attack(unit, dmg):
 
+    unit.hp -= dmg
+    if unit.hp <= 0:
+        unit.st = False
+        print(f'{unit.name} убит')
+
+    else:
+        print(f'{unit.name} получил {dmg} урона')
 
 def battle(unit_list):
-
+    global unlist
+    unlist = unit_list
     total = 0
     going = True
     print('Бой!')
@@ -35,8 +44,19 @@ def battle(unit_list):
         if inp == 'атаковать' or inp == '1':
             print("Номер цели")
             attack(unit_list[int(input())-1], unitclass.player.dmg)
+
+
         elif inp == 'Бежать' or inp == '3':
             return 'run'
+
+
+        elif inp == '2':
+            for item in unitclass.player.active_item_list:
+                print(item.name, end='     ')
+                print()
+                print('Выберите номер предмета')
+                inp = int(input())
+                unitclass.player.active_item_list[inp - 1].active(1)
 
 
 
@@ -55,11 +75,14 @@ def battle(unit_list):
                 if total == len(unit_list):
                     print("Конец боя")
                     going = False
+                    return 'won'
 
 
-    return
+
+
+
 def unit_show(unit_list):
-    print(unit_list)
+ #   print(unit_list)
     total = 0
     print('Враги на экране:')
     for unit in unit_list:
