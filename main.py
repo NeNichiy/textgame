@@ -30,11 +30,13 @@ def battle(unit_list):
     unit_show(unit_list)
     print('_' * 60)
     while going:
-        print('Атаковать         Использовать предметы         Бежать         Осмотреть поле        Осмотреть героя')
-        if input() == 'атаковать' or '1':
+        print('Атаковать         Использовать предметы         Бежать')
+        inp = input()
+        if inp == 'атаковать' or inp == '1':
             print("Номер цели")
             attack(unit_list[int(input())-1], unitclass.player.dmg)
-
+        elif inp == 'Бежать' or inp == '3':
+            return 'run'
 
 
 
@@ -68,7 +70,7 @@ def unit_show(unit_list):
             if total == len(unit_list):
                 print("Конец боя")
                 going = False
-
+                return 'won'
     showplayer()
 
 

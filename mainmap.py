@@ -6,6 +6,7 @@ import itemlist
 import copy
 knownrooms = []
 def level(num):
+    roomdict = {}
     n = (num + 2) * 3
     A = generate.generate(n)
     litemlist = itemlist.mainitemlist
@@ -47,7 +48,7 @@ def level(num):
         print(p)
 
 
-
+        lr = p
         if inp == 's' and p[1]+1 < n and A[p[1] + 1][p[0]] != '.':
             p = [p[0], p[1] + 1]
         elif inp == 'a' and p[0] > 0 and A[p[1]][p[0] - 1] != '.':
@@ -69,13 +70,33 @@ def level(num):
             knownrooms.append([p[0] - 1, p[1]])
         print(knownrooms)
 
+        for i in range(n):
+            for j in range(n):
+                if A[i][j] == '#':
+                    roomdict[(i, j)] = [copy.deepcopy(random.choice(unitclass.unlist)) for i in range(num + 2)]
+                    print(roomdict.items())
+                elif [j, i] in knownrooms:
+
+                    print(A[i][j], end=' ')
+                else:
+                    print('.', end=' ')
+            print()
+        print()
+
+
+
+
+
 
 
         if A[p[1]][p[0]] == '#':
 
-            unit_list1 = [copy.deepcopy(random.choice(unitclass.unlist)) for i in range(num + 2)]
-            main.battle(unit_list1)
-            A[p[1]][p[0]] = '[]'
+            print(roomdict[(p[1], p[0])])
+            res = main.battle(roomdict[(p[1], p[0])])
+            if res == 'won':
+                A[p[1]][p[0]] = '[]'
+            elif res == 'run':
+                p = lr
 
 
 
