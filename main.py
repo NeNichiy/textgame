@@ -31,6 +31,7 @@ def magic_attack(unit, dmg):
         print(f'{unit.name} получил {dmg} урона')
 
 def battle(unit_list):
+    pl_turn = True
     global unlist
     unlist = unit_list
     total = 0
@@ -39,30 +40,37 @@ def battle(unit_list):
     unit_show(unit_list)
     print('_' * 60)
     while going:
-        print('Атаковать         Использовать предметы         Бежать')
-        inp = input()
-        if inp == 'атаковать' or inp == '1':
-            print("Номер цели")
-            attack(unit_list[int(input())-1], unitclass.player.dmg)
+        while pl_turn:
+            print('Атаковать         Использовать предметы         Бежать')
+            inp = input()
+            if inp == 'атаковать' or inp == '1':
+                if unitclass.player.cur_stamin > 0:
+                    print("Номер цели")
+                    unitclass.player.cur_stamin -= 1
+                    attack(unit_list[int(input())-1], unitclass.player.dmg)
+                else:
+                    print('У вас недостаточно сил')
+
+            elif inp == 'Бежать' or inp == '3':
+                return 'run'
 
 
-        elif inp == 'Бежать' or inp == '3':
-            return 'run'
-
-
-        elif inp == '2':
-            for item in unitclass.player.active_item_list:
-                print(item.name, end='     ')
-                print()
-                print('Выберите номер предмета')
-                inp = int(input())
-                unitclass.player.active_item_list[inp - 1].active(1)
-
+            elif inp == '2':
+                for item in unitclass.player.active_item_list:
+                    print(item.name, end='     ')
+                    print()
+                    print('Выберите номер предмета')
+                    inp = int(input())
+                    unitclass.player.active_item_list[inp - 1].active(1)
+            elif inp == '4':
+                pl_turn = False
 
 
 
 
         unit_attack(unit_list)
+        pl_turn = True
+        unitclass.player.cur_stamin += 1
         total = 0
         print('Враги на экране:')
 #        print(unit_list)
@@ -87,6 +95,8 @@ def unit_show(unit_list):
     print('Враги на экране:')
     for unit in unit_list:
         if unit.st == True:
+            if unit.name == 'Игрок:':
+                print(f'    {unit.name}, {unit.hp}/{unit.maxhp} здоровья, {unit.cur_stamina}/{unit.stamina} сил')
             print(f'    {unit.name}, {unit.hp} здоровья')
         else:
             total += 1

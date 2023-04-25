@@ -7,9 +7,12 @@ class creep:
     hp = 30
 class player:
     st = True
+    stamin = 1
+    cur_stamin = 1
     name = 'игрок'
     dmg = 3000
-    hp = 3000
+    maxhp = 100
+    hp = 100
     armour = 0
     plitemlist = []
     active_item_list = []

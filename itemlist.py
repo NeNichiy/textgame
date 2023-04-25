@@ -19,9 +19,11 @@ class cuirass_:
     script = '+25 к здоровью'
     def additem(a):
         if a == True:
+            player.maxhp += 25
             player.hp += 25
             player.plitemlist.append('cuirass')
         else:
+            player.maxhp -= 25
             player.hp -= 25
             player.plitemlist.remove('cuirass')
 class lol_:
@@ -30,10 +32,12 @@ class lol_:
     script = '+ 25 к здоровью'
     def additem(a):
         if a == True:
+            player.maxhp += 25
             player.hp += 25
             player.plitemlist.append('lol')
         else:
             player.hp -= 25
+            player.maxhp -= 25
             player.plitemlist.remove('lol')
 
 
@@ -44,10 +48,12 @@ class bondage_:
     def additem(a):
         if a == True:
             player.hp += 15
+            player.maxhp += 15
             player.dmg += 5
             player.plitemlist.append('bondage')
         else:
             player.hp -= 15
+            player.maxhp -= 15
             player.dmg -= 5
             player.plitemlist.remove('bondage')
 class hollow_:
