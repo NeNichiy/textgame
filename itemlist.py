@@ -67,6 +67,8 @@ class solevar_:
     name = 'солевар'
     script = 'солеварит'
     act = True
+    cd = 4
+    mana = 2
     def additem(a):
         return
     def active(self):

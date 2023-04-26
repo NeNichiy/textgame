@@ -96,6 +96,7 @@ def level(num):
 #            print(res)
             if res == 'won':
                 A[p[1]][p[0]] = '[]'
+                print('Победа!')
             elif res == 'run':
                 p = lr
 

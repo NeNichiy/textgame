@@ -9,13 +9,16 @@ class player:
     st = True
     stamin = 1
     cur_stamin = 1
+    int = 2
+    cur_int = 2
     name = 'игрок'
     dmg = 3000
-    maxhp = 100
-    hp = 100
+    maxhp = 1000
+    hp = 1000
     armour = 0
     plitemlist = []
     active_item_list = []
+    cd_dict = {}
 
 
 
