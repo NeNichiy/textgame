@@ -4,10 +4,11 @@ import unitclass
 import random
 import itemlist
 import copy
+import craftRecipes
 knownrooms = []
 def level(num):
     roomdict = {}
-    n = (num + 2) * 3
+    n = (num + 2) * 2
     A = generate.generate(n)
     litemlist = itemlist.mainitemlist
 
@@ -111,8 +112,7 @@ def level(num):
                 ans = input()
                 if ans == '1':
                     tritem1.additem(1)
-                    if tritem1.act:
-                        unitclass.player.active_item_list.append(tritem1)
+
                     tritem1 = itemlist.hollow_
                 else:
                     continue
@@ -130,14 +130,48 @@ def level(num):
                 ans = input()
                 if bool(ans):
                     tritem2.additem(1)
-                    if tritem2.act:
-                        unitclass.player.active_item_list.append(tritem2)
+
                     tritem2 = itemlist.hollow_
         elif A[p[1]][p[0]] == 'X':
             print('Закончить уровень?')
             ans = input()
             if ans == 'Да':
                 return
+
+
+
+
+        elif A[p[1]][p[0]] == '%':
+            flag = False
+            can_make = []
+            print('Начать создание?')
+            if input() == 'Да':
+                print('Доступные предметы')
+                for i in craftRecipes.craftRec.keys():
+                    print(i)
+                    print(craftRecipes.craftRec[i])
+                    craftFlag = True
+                    for k in craftRecipes.craftRec[i]:
+                        if k not in unitclass.player.plitemlist:
+                            craftFlag = False
+                    if craftFlag:
+                        flag = True
+                        can_make.append(i)
+                        print(i.name)
+                        print(i.script)
+                        print('Рецепт:')
+                        for rec in craftRecipes.craftRec[i]:
+                            print(rec.name)
+                    if flag:
+                        print('Выберите предмет')
+                        inp = int(input())
+                        for rec in craftRecipes.craftRec[can_make[inp - 1]]:
+                            rec.additem(-1)
+                        can_make[inp-1].additem(1)
+                        print(f'Создано: {can_make[inp-1].name}')
+
+
+
 
 #level(4)
 

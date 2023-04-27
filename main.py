@@ -31,6 +31,8 @@ def magic_attack(unit, dmg):
         print(f'{unit.name} получил {dmg} урона')
 
 def battle(unit_list):
+    unitclass.player.cur_int = unitclass.player.int
+    unitclass.player.cur_stamin = unitclass.player.stamin
     pl_turn = True
     global unlist
     unlist = unit_list
@@ -69,12 +71,17 @@ def battle(unit_list):
                         inp = int(input())
                         if inp <= len(unitclass.player.active_item_list):
                             if unitclass.player.cd_dict.get(unitclass.player.active_item_list[inp - 1], 'готов') == 'готов':
-                                if unitclass.player.active_item_list[inp-1].mana <= unitclass.player.cur_int:
-                                    unitclass.player.cur_int -= unitclass.player.active_item_list[inp-1].mana
+                                if itemlist.WiseMysticalTree_ not in unitclass.player.plitemlist:
+                                    if unitclass.player.active_item_list[inp-1].mana <= unitclass.player.cur_int:
+
+                                        unitclass.player.cur_int -= unitclass.player.active_item_list[inp-1].mana
+                                        unitclass.player.active_item_list[inp - 1].active(1)
+                                        unitclass.player.cd_dict[unitclass.player.active_item_list[inp - 1]] = unitclass.player.active_item_list[inp - 1].cd
+                                    else:
+                                        print('недостаточно мудрости')
+                                else:
                                     unitclass.player.active_item_list[inp - 1].active(1)
                                     unitclass.player.cd_dict[unitclass.player.active_item_list[inp - 1]] = unitclass.player.active_item_list[inp - 1].cd
-                                else:
-                                    print('недостаточно мудрости')
                             else:
                                 print('предмет на перезарядке')
                         else:

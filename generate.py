@@ -95,7 +95,9 @@ def generate(n):
             br = cr
             bri = r
     A[bri[0]][bri[1]] = 'X'
-
+    lrooms.remove(bri)
+    room_craft = random.choice(lrooms)
+    A[room_craft[0]][room_craft[1]] = '%'
 
 #    print('конец', bri)
 #    print(itemlist.mainitemlist)
