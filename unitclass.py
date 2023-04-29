@@ -26,6 +26,7 @@ class player:
 
 
 
+
 class kn:
     st = True
     name = 'Воин'
@@ -42,8 +43,10 @@ class Unit:
         self.armour = armour
         self.name = name
         self.hp = hp
+        self.maxhp = maxhp
         self.dmg = dmg
         self.st = st
+        self.state = {}
 creep = Unit('Прихвостень', 30, 1, 10, True, 30)
 kn = Unit('Воин', 40, 3, 25, True, 40)
 lol = Unit('Даунич', 15, 0, 25, True, 15)

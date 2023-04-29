@@ -113,6 +113,8 @@ def battle(unit_list):
         for unit in unit_list:
             if unit.st == True:
                 print(f'    {unit.name}, {unit.hp} здоровья')
+                if unit.state.get('bash', 0) > 0:
+                    print('Оглушен')
             else:
                 print(f'    {unit.name}, мертв')
                 total += 1
@@ -132,6 +134,10 @@ def unit_show(unit_list):
     for unit in unit_list:
         if unit.st == True:
             print(f'    {unit.name}, {unit.hp} здоровья')
+
+
+            if unit.state.get('bash', 0) > 0:
+                print('Оглушен')
         else:
             print(f'    {unit.name}, мертв')
             total += 1
@@ -148,8 +154,11 @@ def showplayer():
 
 def unit_attack(unit_list):
     for unit in unit_list:
-        if unit.st == True:
+        if unit.st == True and unit.state.get('bash', 0) == 0:
             attack(unitclass.player, unit.dmg)
+        for k in unit.state.keys():
+            if unit.state[k] >= 1:
+                unit.state[k] -= 1
     if unitclass.player.hp <= 0:
         going = False
         print('Вы погибли')

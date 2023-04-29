@@ -125,4 +125,30 @@ class WiseMysticalTree_:
             main.magic_attack(main.unlist[inp - 1], player.int * 15)
         else:
             print('Этот уже мертв')
-mainitemlist = [wisemysticalstick_, wisemysticalstick_, wisemysticalstick_]# solevar_#, hollow_, knife_, cuirass_, bondage_
+
+class Bita_:
+    name = 'Бита'
+    script = '+ 22 к урону \n Оглушает выбранного противника на 2 хода и наносит ему 70 урона'
+    act = True
+    cd = 8
+    mana = 0
+    def additem(a):
+        if a == 1:
+            player.plitemlist.append(Bita_)
+
+            unitclass.player.active_item_list.append(Bita_)
+        else:
+            player.plitemlist.remove(Bita_)
+
+            unitclass.player.active_item_list.remove(Bita_)
+        player.dmg += (22 * a)
+
+    def active(self):
+        print('Выберите цель')
+        inp = int(input())
+        if main.unlist[inp - 1].st:
+            main.magic_attack(main.unlist[inp - 1], 10)
+            main.unlist[inp - 1].state['bash'] = 3
+        else:
+            print('Этот уже мертв')
+mainitemlist = [Bita_, Bita_, Bita_]# solevar_#, hollow_, knife_, cuirass_, bondage_
